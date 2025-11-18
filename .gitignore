@@ -1,0 +1,65 @@
+# Environment variables
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+create_github_repo.py
+add_railway_variables.py
+railway_graphql_deploy.py
+railway_service_details.py
+render_deploy.py
+*_test.py
+audit_*.py
+check_*.py
+get_*.py
+search_*.py
+send_test_forms.py
+setup_pipeline.py
+update_existing_contacts.py
+add_stages_to_pipelines.py
+test_opportunity_creation.py
+
+# Documentation (keep only essential)
+AUDITORIA_PIPELINES.md
+DEPLOYMENT_GUIDE.md
+FLUJO_LOGISTICA_COMPLETO.md
+FLUJO_OPERATIVO_JETCARGO.md
+GITHUB_TOKEN_LINK.html
+GUIA_AGREGAR_ETAPAS.md
+GUIA_DESPLIEGUE_MANUAL.md
+GUIA_FINAL_DESPLIEGUE.md
+GUIA_RAPIDA.md
+INSTRUCCIONES_DESARROLLADOR.md
+PIPELINE_STATUS_REPORT.md
+PROGRESO_DESPLIEGUE.md
+RESUMEN_FINAL.md
+SERVICIOS_JETCARGO.md
+
+# Data files
+*.json
+*.zip
+
+# Config
+railway.json
+stages_config.json
