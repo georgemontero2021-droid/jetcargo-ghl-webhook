@@ -13,6 +13,7 @@ import re
 
 # ============================================
 # CONFIGURACIÓN DE LOGGING MEJORADO
+# Última actualización: 2024-11-18
 # ============================================
 
 logging.basicConfig(
