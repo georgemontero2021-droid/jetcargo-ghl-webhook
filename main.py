@@ -62,6 +62,47 @@ if not GHL_LOCATION_ID:
 # Cache simple para rate limiting (en producción usar Redis)
 submission_cache: Dict[str, list] = defaultdict(list)
 
+
+def get_custom_field_id_by_name(field_name: str) -> str | None:
+    """
+    Busca el ID de un custom field de contacto en GoHighLevel por su nombre visible.
+    Devuelve el ID (string) o None si no lo encuentra.
+    """
+    try:
+        url = f"{GHL_API_BASE}/locations/{GHL_LOCATION_ID}/customFields"
+        params = {
+            "model": "contact"   # muy importante: modelo contacto
+        }
+        headers = {
+            "Authorization": f"Bearer {GHL_API_KEY}",
+            "Version": "2021-07-28",
+            "Accept": "application/json"
+        }
+
+        resp = requests.get(url, params=params, headers=headers, timeout=30)
+        if resp.status_code != 200:
+            logger.error(f"❌ Error obteniendo custom fields GHL: {resp.status_code} - {resp.text}")
+            return None
+
+        data = resp.json()
+        fields = data.get("customFields", []) or data.get("custom_fields", [])
+
+        # Normalizar nombre (case insensitive)
+        field_name_lower = field_name.strip().lower()
+
+        for f in fields:
+            name = (f.get("name") or "").strip().lower()
+            if name == field_name_lower:
+                field_id = f.get("id")
+                logger.info(f"✅ Custom field '{field_name}' encontrado: {field_id}")
+                return field_id
+
+        logger.warning(f"⚠️ Custom field '{field_name}' no encontrado en GHL.")
+        return None
+
+    except Exception as e:
+        logger.error(f"❌ Excepción buscando custom field '{field_name}': {e}")
+        return None
 def check_rate_limit(client_ip: str, max_requests: int = 5, time_window: int = 3600) -> bool:
     """
     Verifica si el cliente ha excedido el límite de peticiones
@@ -269,12 +310,16 @@ def create_ghl_contact(data: dict) -> Optional[dict]:
         
         ghl_payload["tags"] = tags
         
-        # Custom fields
-        ghl_payload["customFields"] = [{
-            "key": "service_type",
-            "field_value": service_type
-        }]
-        
+          service_type_field_id = get_custom_field_id_by_name("service_type")
+
+        if service_type_field_id:
+            ghl_payload["customFields"] = [{
+                "id": service_type_field_id,
+                "field_value": service_type
+            }]
+        else:
+            logger.warning("⚠️ No se pudo resolver el custom field 'service_type'; se crea el contacto sin ese campo.")
+
         logger.info(f"📤 Creando contacto: {email}")
         
         # Enviar a GoHighLevel
