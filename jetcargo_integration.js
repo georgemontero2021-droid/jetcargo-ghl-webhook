@@ -58,6 +58,7 @@
                     console.log(`✅ Nombre detectado (${fieldName}): ${value}`);
                 }
             }
+            
         });
         
         // Si no hay nombre, usar Unknown
@@ -73,7 +74,10 @@ if (titulo) {
 }
         // Detectar tipo de servicio
         data.service_type =  mapServiceTypeByTitle(titulo);
-        
+         if (fieldName === 'htitulo' || fieldName === 'htitulo' || field.type === 'text') {
+                    data.service_type = value;
+                    console.log(`✅ Nombre detectado (${fieldName}): ${value}`);
+                }
         console.log('📊 Datos finales a enviar:', data);
         
         return data;
