@@ -212,7 +212,7 @@ SERVICE_TO_PIPELINE = {
 
 def get_pipeline_id(service_type: str) -> str:
     """Obtiene el ID del pipeline basado en el tipo de servicio"""
-    return SERVICE_TO_PIPELINE.get(service_type, "zar5aTjIKP8srIK5x0qk")
+    return get_custom_field_id_by_name(service_type)
 
 # ============================================
 # FUNCIONES DE GOHIGHLEVEL
@@ -311,7 +311,7 @@ def create_ghl_contact(data: dict) -> Optional[dict]:
         ghl_payload["tags"] = tags
         
           service_type_field_id = get_custom_field_id_by_name("service_type")
-
+logger.info(f"📤 service_type_field_id : {service_type_field_id}")
         if service_type_field_id:
             ghl_payload["customFields"] = [{
                 "id": service_type_field_id,
