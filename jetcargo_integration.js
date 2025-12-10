@@ -23,11 +23,16 @@
         
         fields.forEach((field, index) => {
             const value = field.value ? field.value.trim() : '';
-            
+             if (!data.service_type) {
+              if (fieldName === 'htitulo' || fieldName === 'htitulo' || field.type === 'hidden') {
+                    data.service_type = field.value ; 
+                }
+             }
             // Saltar campos vacíos, hidden, submit, button
             if (!value || 
                 field.type === 'submit' || 
                 field.type === 'button' || 
+                  field.type === 'hidden' || 
                 field.type === 'file') {
                 return;
             }
@@ -36,11 +41,7 @@
             const fieldName = field.name || field.id || field.placeholder || `field_${index}`;
             
             console.log(`Campo: ${fieldName} = ${value} (type: ${field.type})`);
-             if (!data.service_type) {
-              if (fieldName === 'htitulo' || fieldName === 'htitulo' || field.type === 'hidden') {
-                    data.service_type = field.value ; 
-                }
-             }
+            
             // Guardar el campo con su nombre original
           data[fieldName] = value;
             
