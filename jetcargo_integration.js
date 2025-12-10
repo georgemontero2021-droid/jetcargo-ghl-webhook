@@ -72,7 +72,8 @@ if (titulo) {
   const title = titulo.textContent.trim();
 }
         // Detectar tipo de servicio
-        data.service_type = mapServiceTypeByTitle(titulo);
+        data.service_type = "preuba";
+            //mapServiceTypeByTitle(titulo);
         
         console.log('📊 Datos finales a enviar:', data);
         
