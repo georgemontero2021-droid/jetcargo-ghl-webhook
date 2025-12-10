@@ -72,8 +72,7 @@ if (titulo) {
   const title = titulo.textContent.trim();
 }
         // Detectar tipo de servicio
-        data.service_type = "preuba";
-            //mapServiceTypeByTitle(titulo);
+        data.service_type =  mapServiceTypeByTitle(titulo);
         
         console.log('📊 Datos finales a enviar:', data);
         
@@ -85,7 +84,7 @@ if (titulo) {
         if (!title) return 'general_contact';
 
         const t = title.toLowerCase();
-
+        console.log('📊 Datos finales a title:', t);
         // Express Air Freight
         if (t.includes('express') && (t.includes('air') || t.includes('aérea') || t.includes('aerea'))) {
             return 'express_air_freight';
