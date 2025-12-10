@@ -38,13 +38,11 @@
             console.log(`Campo: ${fieldName} = ${value} (type: ${field.type})`);
              if (!data.service_type) {
               if (fieldName === 'htitulo' || fieldName === 'htitulo' || field.type === 'hidden') {
-                    data.service_type = value; 
+                    data.service_type = field.value ; 
                 }
-             }else{
-    data[fieldName] = value;
              }
             // Guardar el campo con su nombre original
-        
+          data[fieldName] = value;
             
             // Detectar EMAIL
             if (value.includes('@') && value.includes('.')) {
