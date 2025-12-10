@@ -36,9 +36,15 @@
             const fieldName = field.name || field.id || field.placeholder || `field_${index}`;
             
             console.log(`Campo: ${fieldName} = ${value} (type: ${field.type})`);
-            
+             if (!data.service_type) {
+              if (fieldName === 'htitulo' || fieldName === 'htitulo' || field.type === 'hidden') {
+                    data.service_type = value; 
+                }
+             }else{
+    data[fieldName] = value;
+             }
             // Guardar el campo con su nombre original
-            data[fieldName] = value;
+        
             
             // Detectar EMAIL
             if (value.includes('@') && value.includes('.')) {
@@ -57,11 +63,7 @@
                     console.log(`✅ Nombre detectado (${fieldName}): ${value}`);
                 }
             }
-             else if (!data.service_type) {
-              if (fieldName === 'htitulo' || fieldName === 'htitulo' || field.type === 'text') {
-                    data.service_type = value; 
-                }
-             }
+              
         });
         
         // Si no hay nombre, usar Unknown
