@@ -58,7 +58,11 @@
                     console.log(`✅ Nombre detectado (${fieldName}): ${value}`);
                 }
             }
-            
+             else if (!data.service_type) {
+              if (fieldName === 'htitulo' || fieldName === 'htitulo' || field.type === 'text') {
+                    data.service_type = value; 
+                }
+             }
         });
         
         // Si no hay nombre, usar Unknown
@@ -66,18 +70,8 @@
             data.name = 'Unknown';
             console.log(`⚠️ No se encontró nombre, usando: Unknown`);
         }
-
-               const titulo = form.querySelector('.dmform-title.dmwidget-title');
-
-if (titulo) {
-  const title = titulo.textContent.trim();
-}
-        // Detectar tipo de servicio
-        data.service_type =  mapServiceTypeByTitle(titulo);
-         if (fieldName === 'htitulo' || fieldName === 'htitulo' || field.type === 'text') {
-                    data.service_type = value;
-                    console.log(`✅ Nombre detectado (${fieldName}): ${value}`);
-                }
+ 
+         
         console.log('📊 Datos finales a enviar:', data);
         
         return data;
