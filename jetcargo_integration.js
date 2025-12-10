@@ -65,15 +65,101 @@
             data.name = 'Unknown';
             console.log(`⚠️ No se encontró nombre, usando: Unknown`);
         }
-        
+
+               const titulo = form.querySelector('.dmform-title.dmwidget-title');
+
+if (titulo) {
+  const title = titulo.textContent.trim();
+}
         // Detectar tipo de servicio
-        data.service_type = detectServiceType(form);
+        data.service_type = mapServiceTypeByTitle(titulo);
         
         console.log('📊 Datos finales a enviar:', data);
         
         return data;
     }
+     function mapServiceTypeByTitle(title) {
     
+
+        if (!title) return 'general_contact';
+
+        const t = title.toLowerCase();
+
+        // Express Air Freight
+        if (t.includes('express') && (t.includes('air') || t.includes('aérea') || t.includes('aerea'))) {
+            return 'express_air_freight';
+        }
+
+        // Deferred Air Freight
+        if (t.includes('deferred') && (t.includes('air') || t.includes('aérea') || t.includes('aerea'))) {
+            return 'deferred_air_freight';
+        }
+
+        // LCL Ocean
+        if ((t.includes('lcl') || t.includes('carga parcial')) &&
+            (t.includes('ocean') || t.includes('marítima') || t.includes('maritima'))) {
+            return 'lcl_ocean_freight';
+        }
+
+        // FCL Ocean
+        if ((t.includes('fcl') || t.includes('contenedor completo')) &&
+            (t.includes('ocean') || t.includes('marítima') || t.includes('maritima'))) {
+            return 'fcl_ocean_freight';
+        }
+
+        // Trucking
+        if (t.includes('trucking') || t.includes('camión') || t.includes('camion') || t.includes('terrestre')) {
+            return 'trucking_services';
+        }
+
+        // Courier internacional
+        if (t.includes('courier') || t.includes('paqueteria') || t.includes('paquetería')) {
+            return 'international_courier';
+        }
+
+        // Cargo Consolidation
+        if (t.includes('consolidation') || t.includes('consolidado') || t.includes('consolidación')) {
+            return 'cargo_consolidation';
+        }
+
+        // Car Auction Transport
+        if (t.includes('car auction') || t.includes('subasta')) {
+            return 'car_auction_transport';
+        }
+
+        // In Transit Cargo
+        if (t.includes('in transit') || t.includes('en tránsito') || t.includes('en transito')) {
+            return 'in_transit_cargo';
+        }
+
+        // Smart Storage
+        if (t.includes('smart storage')) {
+            return 'smart_storage';
+        }
+
+        // Warehousing
+        if (t.includes('warehouse') || t.includes('almacén') || t.includes('almacen') || t.includes('warehousing')) {
+            return 'warehousing';
+        }
+
+        // Procurement & Sourcing
+        if (t.includes('procurement') || t.includes('sourcing') || t.includes('compras internacionales')) {
+            return 'procurement_sourcing';
+        }
+
+        // Customs Clearance
+        if (t.includes('customs') || t.includes('aduana') || t.includes('despacho aduanal') || t.includes('clearance')) {
+            return 'customs_clearance';
+        }
+
+        // Cargo Insurance
+        if (t.includes('insurance') || t.includes('seguro de carga') || t.includes('seguro')) {
+            return 'cargo_insurance';
+        }
+
+        return 'general_contact';
+    }
+
     /**
      * Detecta el tipo de servicio
      */
