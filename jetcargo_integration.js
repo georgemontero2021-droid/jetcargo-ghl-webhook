@@ -19,11 +19,12 @@
         // Obtener TODOS los campos
         const fields = form.querySelectorAll('input, textarea, select');
          // Obtener el nombre del campo
-        const fieldName = field.name || field.id || field.placeholder || `field_${index}`;
-        console.log(`📝 Encontrados ${fields.length} campos en el formulario`);
+
         
         fields.forEach((field, index) => {
             const value = field.value ? field.value.trim() : '';
+                    const fieldName = field.name || field.id || field.placeholder || `field_${index}`;
+        console.log(`📝 Encontrados ${fields.length} campos en el formulario`);
              if (!data.service_type) {
               if (fieldName === 'htitulo' || fieldName === 'htitulo' || field.type === 'hidden') {
                     data.service_type = field.value ; 
