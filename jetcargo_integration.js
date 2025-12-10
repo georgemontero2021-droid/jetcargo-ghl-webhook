@@ -18,7 +18,8 @@
         
         // Obtener TODOS los campos
         const fields = form.querySelectorAll('input, textarea, select');
-        
+         // Obtener el nombre del campo
+        const fieldName = field.name || field.id || field.placeholder || `field_${index}`;
         console.log(`📝 Encontrados ${fields.length} campos en el formulario`);
         
         fields.forEach((field, index) => {
@@ -37,8 +38,6 @@
                 return;
             }
             
-            // Obtener el nombre del campo
-            const fieldName = field.name || field.id || field.placeholder || `field_${index}`;
             
             console.log(`Campo: ${fieldName} = ${value} (type: ${field.type})`);
             
