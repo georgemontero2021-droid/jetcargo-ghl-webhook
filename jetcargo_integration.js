@@ -35,8 +35,7 @@
             
             if (!value || 
                 field.type === 'submit' || 
-                field.type === 'button' || 
-                  field.type === 'hidden' || 
+                field.type === 'button' ||  
                 field.type === 'file') {
                 return;
             }
