@@ -18,28 +18,33 @@
         
         // Obtener TODOS los campos
         const fields = form.querySelectorAll('input, textarea, select');
-        
-        console.log(`📝 Encontrados ${fields.length} campos en el formulario`);
+         // Obtener el nombre del campo
+
         
         fields.forEach((field, index) => {
             const value = field.value ? field.value.trim() : '';
+            const fieldName = field.name || field.id || field.placeholder || `field_${index}`;
             
-            // Saltar campos vacíos, hidden, submit, button
+            console.log(`📝 Encontrados ${fields.length} campos en el formulario`);
+             
+            if (!data.service_type) {
+              if (fieldName === 'htitulo' || fieldName === 'htitulo' || field.type === 'hidden') {
+                    data.service_type = field.value ; 
+                }
+             }
+            
             if (!value || 
                 field.type === 'submit' || 
-                field.type === 'button' ||
-                field.type === 'hidden' ||
+                field.type === 'button' ||  
                 field.type === 'file') {
                 return;
             }
             
-            // Obtener el nombre del campo
-            const fieldName = field.name || field.id || field.placeholder || `field_${index}`;
             
             console.log(`Campo: ${fieldName} = ${value} (type: ${field.type})`);
             
             // Guardar el campo con su nombre original
-            data[fieldName] = value;
+          data[fieldName] = value;
             
             // Detectar EMAIL
             if (value.includes('@') && value.includes('.')) {
@@ -58,6 +63,7 @@
                     console.log(`✅ Nombre detectado (${fieldName}): ${value}`);
                 }
             }
+              
         });
         
         // Si no hay nombre, usar Unknown
@@ -65,16 +71,8 @@
             data.name = 'Unknown';
             console.log(`⚠️ No se encontró nombre, usando: Unknown`);
         }
-
-               const titulo = form.querySelector('.dmform-title.dmwidget-title');
-
-if (titulo) {
-  const title = titulo.textContent.trim();
-}
-        // Detectar tipo de servicio
-        data.service_type = "preuba";
-            //mapServiceTypeByTitle(titulo);
-        
+ 
+         
         console.log('📊 Datos finales a enviar:', data);
         
         return data;
@@ -85,7 +83,7 @@ if (titulo) {
         if (!title) return 'general_contact';
 
         const t = title.toLowerCase();
-
+        console.log('📊 Datos finales a title:', t);
         // Express Air Freight
         if (t.includes('express') && (t.includes('air') || t.includes('aérea') || t.includes('aerea'))) {
             return 'express_air_freight';
